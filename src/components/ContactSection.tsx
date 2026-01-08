@@ -44,9 +44,6 @@ const ContactSection = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
-              Contacto
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold font-display mt-2 mb-4">
               ¿Listo para{" "}
               <span className="text-gradient">automatizar tu negocio</span>?

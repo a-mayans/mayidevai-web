@@ -41,9 +41,6 @@ const AboutSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
-              Sobre mí
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold font-display mt-2 mb-6">
               Experto en automatización{" "}
               <span className="text-gradient">e inteligencia artificial</span>
