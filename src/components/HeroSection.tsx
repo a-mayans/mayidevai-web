@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import LogoSVG from "@/components/LogoSVG";
+import logoImage from "@/assets/logo-mayidevai.png";
 
 const HeroSection = () => {
   const scrollToSection = (href: string) => {
@@ -31,7 +31,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <LogoSVG className="w-64 md:w-80 lg:w-96 h-auto mx-auto animate-float" />
+            <img src={logoImage} alt="MayidevAI" className="w-64 md:w-80 lg:w-96 h-auto mx-auto animate-float" />
           </motion.div>
 
           <motion.div
