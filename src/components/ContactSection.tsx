@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+const N8N_WEBHOOK_URL =
+  "https://workflows.n8nmayidevai.site/webhook-test/lead-web";
+
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -18,15 +21,41 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const formData = new FormData(e.currentTarget);
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "¡Mensaje enviado!",
-      description: "Me pondré en contacto contigo pronto.",
-    });
+      const payload = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        company: formData.get("company"),
+        message: formData.get("message"),
+        source: "landing-mayidevai",
+        submittedAt: new Date().toISOString(),
+      };
+
+      await fetch(N8N_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      setIsSubmitted(true);
+      toast({
+        title: "Mensaje enviado",
+        description: "Revisaré tu caso y te responderé en breve.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error al enviar",
+        description:
+          "No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme por email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,12 +74,12 @@ const ContactSection = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold font-display mt-2 mb-4">
-              ¿Listo para{" "}
+              ¿Hablamos de{" "}
               <span className="text-gradient">automatizar tu negocio</span>?
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Cuéntame sobre tu proyecto y te ayudaré a encontrar la mejor
-              solución de automatización para tu empresa.
+              Cuéntame tu caso y analizaré qué procesos se pueden automatizar
+              para ahorrar tiempo, reducir errores y escalar tu operativa.
             </p>
           </motion.div>
 
@@ -60,7 +89,7 @@ const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid md:grid-cols-5 gap-8"
           >
-            {/* Contact Info */}
+            {/* Info lateral */}
             <div className="md:col-span-2 space-y-6">
               <div className="bg-card rounded-2xl p-6 shadow-card">
                 <div className="flex items-center gap-4 mb-4">
@@ -68,7 +97,9 @@ const ContactSection = () => {
                     <Mail className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold font-display">Email</h3>
+                    <h3 className="font-semibold font-display">
+                      Contacto directo
+                    </h3>
                     <a
                       href="mailto:mayidevai@gmail.com"
                       className="text-secondary hover:underline"
@@ -78,8 +109,8 @@ const ContactSection = () => {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Respondo en menos de 24 horas. ¡Escríbeme y hablamos de cómo
-                  puedo ayudarte!
+                  Respondo personalmente en menos de 24 horas.
+                  Analizamos tu caso sin compromiso.
                 </p>
               </div>
 
@@ -90,25 +121,25 @@ const ContactSection = () => {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Análisis de tus procesos actuales
+                    Análisis de procesos actuales
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Propuesta de automatización personalizada
+                    Propuesta de automatización adaptada a tu negocio
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Estimación de ahorro de tiempo y costes
+                    Estimación real de ahorro de tiempo y costes
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Plan de implementación detallado
+                    Plan de implementación claro y accionable
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Contact Form */}
+            {/* Formulario */}
             <div className="md:col-span-3">
               <form
                 onSubmit={handleSubmit}
@@ -124,10 +155,10 @@ const ContactSection = () => {
                       <CheckCircle className="w-8 h-8 text-secondary-foreground" />
                     </div>
                     <h3 className="text-xl font-bold font-display mb-2">
-                      ¡Gracias por tu mensaje!
+                      Mensaje recibido
                     </h3>
                     <p className="text-muted-foreground">
-                      Me pondré en contacto contigo muy pronto.
+                      Revisaré tu caso y te contactaré muy pronto.
                     </p>
                   </motion.div>
                 ) : (
@@ -157,6 +188,7 @@ const ContactSection = () => {
                         />
                       </div>
                     </div>
+
                     <div>
                       <label className="text-sm font-medium mb-2 block">
                         Empresa
@@ -167,18 +199,20 @@ const ContactSection = () => {
                         className="bg-muted/50"
                       />
                     </div>
+
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        ¿Cómo puedo ayudarte?
+                        ¿Qué quieres automatizar?
                       </label>
                       <Textarea
                         name="message"
-                        placeholder="Cuéntame qué procesos te gustaría automatizar..."
+                        placeholder="Describe brevemente el proceso, problema o idea que tienes en mente..."
                         rows={4}
                         required
                         className="bg-muted/50 resize-none"
                       />
                     </div>
+
                     <Button
                       type="submit"
                       variant="hero"

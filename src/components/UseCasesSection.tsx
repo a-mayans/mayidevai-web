@@ -25,49 +25,49 @@ const useCases = [
     title: "Chatbots de atención al cliente",
     description:
       "Bots inteligentes que responden consultas 24/7, escalan casos complejos y aprenden de cada interacción.",
-    savings: "Respuesta inmediata 24/7",
+    savings: "Atención automática 24/7",
   },
   {
     icon: Calendar,
     title: "Gestión de citas y reservas",
     description:
       "Sistema automatizado de reservas con confirmaciones, recordatorios y sincronización con calendarios.",
-    savings: "Reduce no-shows 80%",
+    savings: "Menos no-shows y cancelaciones",
   },
   {
     icon: ShoppingCart,
     title: "Automatización de e-commerce",
     description:
       "Sincronización de inventario, procesamiento de pedidos, notificaciones y seguimiento automatizado.",
-    savings: "Procesa 3x más pedidos",
+    savings: "Procesos escalables",
   },
   {
     icon: Users,
     title: "Onboarding de clientes",
     description:
       "Flujos automáticos para dar la bienvenida, recopilar información y activar nuevos clientes sin esfuerzo.",
-    savings: "Activa clientes en minutos",
+    savings: "Alta de clientes en minutos",
   },
   {
     icon: Bell,
     title: "Alertas y notificaciones",
     description:
       "Sistema de alertas personalizadas basadas en eventos, métricas o condiciones específicas de tu negocio.",
-    savings: "Nunca pierdas una alerta",
+    savings: "Control en tiempo real",
   },
   {
     icon: FileText,
     title: "Generación de documentos",
     description:
       "Creación automática de contratos, propuestas y reportes personalizados a partir de plantillas.",
-    savings: "Documentos en segundos",
+    savings: "Documentos sin trabajo manual",
   },
   {
     icon: Globe,
     title: "Sincronización multi-plataforma",
     description:
       "Mantén tus datos sincronizados entre CRM, ERP, email marketing y todas tus herramientas.",
-    savings: "Datos siempre actualizados",
+    savings: "Datos siempre coherentes",
   },
 ];
 
@@ -78,7 +78,7 @@ const UseCasesSection = () => {
   return (
     <section id="casos" className="py-24 bg-card relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/5 to-transparent" />
-      
+
       <div className="container mx-auto px-4 relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -91,8 +91,8 @@ const UseCasesSection = () => {
             <span className="text-gradient">las empresas demandan</span>
           </h2>
           <p className="text-muted-foreground">
-            Estos son algunos de los casos de uso más solicitados por las
-            empresas que buscan optimizar sus operaciones.
+            Casos de uso reales que diseño e implemento para optimizar operaciones,
+            reducir trabajo manual y escalar procesos.
           </p>
         </motion.div>
 
@@ -128,13 +128,13 @@ const UseCasesSection = () => {
           className="mt-12 text-center"
         >
           <p className="text-muted-foreground mb-4">
-            ¿No ves tu caso de uso? ¡Cuéntame qué necesitas!
+            ¿No ves tu caso de uso? Analizamos tu proceso y lo automatizamos.
           </p>
           <a
             href="#contacto"
             className="text-secondary font-semibold hover:underline inline-flex items-center gap-1"
           >
-            Consulta personalizada →
+            Solicitar diagnóstico →
           </a>
         </motion.div>
       </div>

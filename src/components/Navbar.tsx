@@ -9,7 +9,6 @@ const navLinks = [
   { href: "#sobre-mi", label: "Sobre mí" },
   { href: "#servicios", label: "Servicios" },
   { href: "#casos", label: "Casos de uso" },
-  { href: "#contacto", label: "Contacto" },
 ];
 
 const Navbar = () => {
@@ -32,8 +31,16 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#inicio" className="flex items-center gap-2">
-            <img src={logoImage} alt="MayidevAI" className="h-10 md:h-12 w-auto" />
+          <a
+            href="#inicio"
+            onClick={() => scrollToSection("#inicio")}
+            className="flex items-center gap-2"
+          >
+            <img
+              src={logoImage}
+              alt="MayidevAI"
+              className="h-10 md:h-12 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}

@@ -13,45 +13,69 @@ import {
 const services = [
   {
     icon: Workflow,
-    title: "Automatización con n8n",
+    title: "Automatización de procesos con n8n",
     description:
-      "Diseño e implemento flujos de trabajo personalizados con n8n, conectando todas tus herramientas para eliminar tareas manuales.",
-    features: ["Flujos personalizados", "Integraciones API", "Self-hosted o cloud"],
+      "Diseño flujos de trabajo a medida para eliminar tareas repetitivas, reducir errores y conectar todas tus herramientas.",
+    features: [
+      "Flujos personalizados",
+      "Integraciones vía API",
+      "Self-hosted o cloud",
+    ],
   },
   {
     icon: Bot,
-    title: "Integración de IA",
+    title: "IA aplicada a negocio",
     description:
-      "Incorporo modelos de inteligencia artificial en tus procesos para automatizar decisiones y generar contenido.",
-    features: ["ChatGPT / Claude", "Procesamiento de datos", "Respuestas automáticas"],
+      "Integro modelos de IA en procesos reales para automatizar decisiones, clasificar información y generar respuestas.",
+    features: [
+      "ChatGPT / Claude",
+      "Clasificación y análisis",
+      "Acciones automáticas",
+    ],
   },
   {
     icon: Plug,
-    title: "Automatización con Make",
+    title: "Automatización rápida con Make",
     description:
-      "Creo escenarios visuales en Make para automatizar workflows complejos sin necesidad de programar.",
-    features: ["Escenarios visuales", "+1000 apps", "Webhooks y APIs"],
+      "Creo automatizaciones visuales para validar ideas, lanzar procesos rápido o complementar flujos existentes.",
+    features: [
+      "Escenarios visuales",
+      "+1000 integraciones",
+      "Webhooks y APIs",
+    ],
   },
   {
     icon: Database,
     title: "Gestión de datos",
     description:
-      "Automatizo la recopilación, transformación y almacenamiento de datos entre tus diferentes sistemas.",
-    features: ["ETL automatizado", "Sincronización", "Reportes automáticos"],
+      "Centralizo, sincronizo y transformo datos entre sistemas para que siempre estén actualizados y listos para usar.",
+    features: [
+      "Sincronización de sistemas",
+      "Transformación de datos",
+      "Procesos ETL automáticos",
+    ],
   },
   {
     icon: Mail,
-    title: "Email automation",
+    title: "Email y notificaciones",
     description:
-      "Configuro secuencias de emails automatizados y respuestas inteligentes basadas en el comportamiento del usuario.",
-    features: ["Secuencias personalizadas", "Triggers inteligentes", "A/B testing"],
+      "Configuro comunicaciones automáticas basadas en eventos y comportamiento del usuario, sin intervención manual.",
+    features: [
+      "Emails transaccionales",
+      "Triggers inteligentes",
+      "Notificaciones multicanal",
+    ],
   },
   {
     icon: BarChart3,
-    title: "Dashboards y reportes",
+    title: "Dashboards y reporting automático",
     description:
-      "Creo dashboards automatizados que se actualizan en tiempo real con los KPIs de tu negocio.",
-    features: ["Tiempo real", "KPIs personalizados", "Alertas automáticas"],
+      "Creo dashboards que se actualizan solos para que tomes decisiones basadas en datos reales y actuales.",
+    features: [
+      "KPIs personalizados",
+      "Actualización automática",
+      "Alertas y métricas clave",
+    ],
   },
 ];
 
@@ -69,12 +93,12 @@ const ServicesSection = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold font-display mt-2 mb-4">
-            Soluciones de automatización{" "}
-            <span className="text-gradient">para cada necesidad</span>
+            Servicios de automatización{" "}
+            <span className="text-gradient">orientados a resultados</span>
           </h2>
           <p className="text-muted-foreground">
-            Ofrezco servicios especializados para transformar la operativa de tu
-            empresa mediante automatización e inteligencia artificial.
+            Automatizo procesos reales para que tu negocio ahorre tiempo, reduzca
+            errores y escale sin aumentar carga operativa.
           </p>
         </motion.div>
 
@@ -93,7 +117,9 @@ const ServicesSection = () => {
               <h3 className="text-xl font-bold font-display mb-3">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground mb-4">{service.description}</p>
+              <p className="text-muted-foreground mb-4">
+                {service.description}
+              </p>
               <ul className="space-y-2">
                 {service.features.map((feature) => (
                   <li

@@ -14,7 +14,7 @@ const HeroSection = () => {
   return (
     <section
       id="inicio"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-hero pt-20"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-hero pt-32"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden">
@@ -31,7 +31,11 @@ const HeroSection = () => {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <img src={logoImage} alt="MayidevAI" className="w-64 md:w-80 lg:w-96 h-auto mx-auto animate-float" />
+            <img
+              src={logoImage}
+              alt="MayidevAI"
+              className="w-64 md:w-80 lg:w-96 h-auto mx-auto animate-float"
+            />
           </motion.div>
 
           <motion.div
@@ -42,7 +46,7 @@ const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-secondary" />
             <span className="text-sm font-medium text-muted-foreground">
-              Automatización inteligente para tu negocio
+              Automatización real con IA para pymes y negocios digitales
             </span>
           </motion.div>
 
@@ -50,21 +54,21 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-10 leading-tight"
           >
-            Transforma tu empresa con{" "}
-            <span className="text-gradient">IA y automatización</span>
+            Automatiza procesos, reduce costes y escala tu negocio con{" "}
+            <span className="text-gradient">IA aplicada</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground mb-16 max-w-2xl mx-auto"
           >
-            Optimizo procesos empresariales con n8n y Make. Ahorra tiempo,
-            reduce errores y escala tu negocio con flujos de trabajo
-            automatizados impulsados por inteligencia artificial.
+            Diseño e implemento automatizaciones con n8n, APIs e inteligencia artificial
+            para eliminar tareas manuales, errores humanos y cuellos de botella.
+            Menos trabajo operativo. Más foco en crecer.
           </motion.p>
 
           <motion.div
@@ -79,7 +83,7 @@ const HeroSection = () => {
               onClick={() => scrollToSection("#contacto")}
               className="group"
             >
-              Solicitar consultoría
+              Diagnóstico gratuito de automatización
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
@@ -96,12 +100,12 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
+            className="mt-16 mb-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
           >
             {[
-              { value: "100+", label: "Procesos automatizados" },
-              { value: "50+", label: "Clientes satisfechos" },
-              { value: "95%", label: "Tiempo ahorrado" },
+              { value: "n8n", label: "Automatizaciones a medida" },
+              { value: "API", label: "Integraciones reales" },
+              { value: "IA", label: "Decisiones automáticas" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-2xl md:text-3xl font-bold font-display text-gradient">

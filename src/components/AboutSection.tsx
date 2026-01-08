@@ -7,22 +7,26 @@ const values = [
   {
     icon: Zap,
     title: "Eficiencia",
-    description: "Automatizo para que tu equipo se enfoque en lo importante",
+    description:
+      "Automatizo procesos para liberar tiempo operativo y reducir carga manual en tu equipo",
   },
   {
     icon: Target,
     title: "Precisión",
-    description: "Soluciones a medida que se adaptan a tu flujo de trabajo",
+    description:
+      "Soluciones diseñadas a medida, alineadas con tu flujo real de trabajo",
   },
   {
     icon: Users,
     title: "Colaboración",
-    description: "Trabajo contigo para entender tus necesidades reales",
+    description:
+      "Trabajo contigo para entender el negocio antes de proponer cualquier automatización",
   },
   {
     icon: Award,
     title: "Resultados",
-    description: "Métricas claras y ROI demostrable en cada proyecto",
+    description:
+      "Automatizaciones orientadas a métricas claras y retorno de inversión medible",
   },
 ];
 
@@ -33,7 +37,7 @@ const AboutSection = () => {
   return (
     <section id="sobre-mi" className="py-24 bg-card relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      
+
       <div className="container mx-auto px-4" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -42,24 +46,32 @@ const AboutSection = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold font-display mt-2 mb-6">
-              Experto en automatización{" "}
-              <span className="text-gradient">e inteligencia artificial</span>
+              Automatización e IA{" "}
+              <span className="text-gradient">
+                aplicadas a resultados reales
+              </span>
             </h2>
+
             <div className="space-y-4 text-muted-foreground">
               <p>
-                Soy un especialista en automatización de procesos empresariales
-                utilizando las plataformas más potentes del mercado: n8n y Make
+                Ayudo a empresas a optimizar y escalar sus operaciones mediante
+                automatización de procesos y soluciones de inteligencia
+                artificial, utilizando plataformas como n8n y Make
                 (anteriormente Integromat).
               </p>
+
               <p>
-                Mi enfoque combina la potencia de la inteligencia artificial con
-                flujos de trabajo automatizados, permitiendo a las empresas
-                liberarse de tareas repetitivas y concentrarse en crecer.
+                Mi enfoque no se basa en automatizar por automatizar, sino en
+                identificar cuellos de botella, tareas repetitivas y procesos
+                ineficientes para transformarlos en flujos de trabajo robustos,
+                mantenibles y escalables.
               </p>
+
               <p>
-                Desde startups hasta empresas consolidadas, ayudo a implementar
-                soluciones que transforman la manera en que operan, reduciendo
-                costes y multiplicando la productividad.
+                Trabajo tanto con startups como con empresas consolidadas,
+                diseñando soluciones que reducen costes operativos, minimizan
+                errores y permiten a los equipos centrarse en lo que realmente
+                aporta valor al negocio.
               </p>
             </div>
           </motion.div>
