@@ -3,53 +3,54 @@ import crypto from "crypto";
 
 export const handler: Handler = async (event) => {
   try {
-    console.log("Incoming request");
-
     if (event.httpMethod !== "POST") {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
 
     const secret = process.env.N8N_WEBHOOK_SECRET;
-
     if (!secret) {
       console.error("Missing N8N_WEBHOOK_SECRET");
       return { statusCode: 500, body: "Server misconfigured" };
     }
 
+    const signature = event.headers["x-webhook-signature"];
     const body = event.body || "";
 
-    console.log("Body:", body);
+    if (!signature) {
+      console.warn("Missing signature");
+      return { statusCode: 401, body: "Missing signature" };
+    }
 
-    // Generar firma HMAC aquí (servidor)
     const hmac = crypto.createHmac("sha256", secret);
     hmac.update(body, "utf8");
-    const signature = hmac.digest("hex");
+    const expectedSignature = hmac.digest("hex");
 
-    console.log("Generated signature:", signature);
+    if (signature !== expectedSignature) {
+      console.warn("Invalid signature");
+      return { statusCode: 401, body: "Invalid signature" };
+    }
 
-    // Enviar a n8n
-    const N8N_URL = "https://workflows.n8nmayidevai.site/webhook/lead-web";
+    console.info("Valid webhook received");
 
-    const response = await fetch(N8N_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-webhook-signature": signature,
-      },
-      body,
-    });
+    const response = await fetch(
+      "https://workflows.n8nmayidevai.site/webhook/lead-web",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      }
+    );
+
+    console.info("Forwarded to n8n:", response.status);
 
     const text = await response.text();
-
-    console.log("n8n status:", response.status);
-    console.log("n8n response:", text);
 
     return {
       statusCode: response.status,
       body: text,
     };
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Function crash:", err);
     return { statusCode: 500, body: "Internal error" };
   }
 };
