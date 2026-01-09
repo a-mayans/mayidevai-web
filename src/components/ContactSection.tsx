@@ -8,7 +8,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const N8N_WEBHOOK_URL =
-  "https://workflows.n8nmayidevai.site/webhook/lead-web";
+  "https://mayidevai.com/.netlify/functions/lead";
+
+const WEBHOOK_SECRET = import.meta.env.VITE_N8N_WEBHOOK_SECRET;
+
+// 🔐 Firma HMAC-SHA256 del payload
+async function signPayload(payload: string, secret: string) {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const data = encoder.encode(payload);
+
+  const cryptoKey = await window.crypto.subtle.importKey(
+    "raw",
+    keyData,
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const signature = await window.crypto.subtle.sign("HMAC", cryptoKey, data);
+
+  return Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -33,12 +56,16 @@ const ContactSection = () => {
         submittedAt: new Date().toISOString(),
       };
 
+      const body = JSON.stringify(payload);
+      const signature = await signPayload(body, WEBHOOK_SECRET);
+
       await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-webhook-signature": signature,
         },
-        body: JSON.stringify(payload),
+        body,
       });
 
       setIsSubmitted(true);
