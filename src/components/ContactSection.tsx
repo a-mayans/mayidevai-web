@@ -7,31 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-const N8N_WEBHOOK_URL =
-  "https://mayidevai.com/.netlify/functions/lead";
-
-const WEBHOOK_SECRET = import.meta.env.VITE_N8N_WEBHOOK_SECRET;
-
-// 🔐 Firma HMAC-SHA256 del payload
-async function signPayload(payload: string, secret: string) {
-  const encoder = new TextEncoder();
-  const keyData = encoder.encode(secret);
-  const data = encoder.encode(payload);
-
-  const cryptoKey = await window.crypto.subtle.importKey(
-    "raw",
-    keyData,
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"]
-  );
-
-  const signature = await window.crypto.subtle.sign("HMAC", cryptoKey, data);
-
-  return Array.from(new Uint8Array(signature))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
+const N8N_WEBHOOK_URL = "https://mayidevai.com/.netlify/functions/lead";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -56,16 +32,12 @@ const ContactSection = () => {
         submittedAt: new Date().toISOString(),
       };
 
-      const body = JSON.stringify(payload);
-      const signature = await signPayload(body, WEBHOOK_SECRET);
-
       await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-webhook-signature": signature,
         },
-        body,
+        body: JSON.stringify(payload),
       });
 
       setIsSubmitted(true);
@@ -116,7 +88,6 @@ const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid md:grid-cols-5 gap-8"
           >
-            {/* Info lateral */}
             <div className="md:col-span-2 space-y-6">
               <div className="bg-card rounded-2xl p-6 shadow-card">
                 <div className="flex items-center gap-4 mb-4">
@@ -166,95 +137,29 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Formulario */}
             <div className="md:col-span-3">
               <form
                 onSubmit={handleSubmit}
                 className="bg-card rounded-2xl p-8 shadow-card space-y-6"
               >
                 {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-8"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-gradient-accent flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle className="w-8 h-8 text-secondary-foreground" />
-                    </div>
+                  <div className="text-center py-8">
                     <h3 className="text-xl font-bold font-display mb-2">
                       Mensaje recibido
                     </h3>
                     <p className="text-muted-foreground">
                       Revisaré tu caso y te contactaré muy pronto.
                     </p>
-                  </motion.div>
+                  </div>
                 ) : (
                   <>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Nombre
-                        </label>
-                        <Input
-                          name="name"
-                          placeholder="Tu nombre"
-                          required
-                          className="bg-muted/50"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Email
-                        </label>
-                        <Input
-                          name="email"
-                          type="email"
-                          placeholder="tu@email.com"
-                          required
-                          className="bg-muted/50"
-                        />
-                      </div>
-                    </div>
+                    <Input name="name" placeholder="Tu nombre" required />
+                    <Input name="email" type="email" placeholder="tu@email.com" required />
+                    <Input name="company" placeholder="Empresa" />
+                    <Textarea name="message" required />
 
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        Empresa
-                      </label>
-                      <Input
-                        name="company"
-                        placeholder="Nombre de tu empresa"
-                        className="bg-muted/50"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        ¿Qué quieres automatizar?
-                      </label>
-                      <Textarea
-                        name="message"
-                        placeholder="Describe brevemente el proceso, problema o idea que tienes en mente..."
-                        rows={4}
-                        required
-                        className="bg-muted/50 resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="hero"
-                      size="lg"
-                      className="w-full"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        "Enviando..."
-                      ) : (
-                        <>
-                          Enviar mensaje
-                          <Send className="w-4 h-4" />
-                        </>
-                      )}
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? "Enviando..." : "Enviar"}
                     </Button>
                   </>
                 )}
