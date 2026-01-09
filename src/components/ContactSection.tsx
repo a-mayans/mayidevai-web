@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const N8N_WEBHOOK_URL =
-  "https://workflows.n8nmayidevai.site/webhook-test/lead-web";
+  "https://workflows.n8nmayidevai.site/webhook/lead-web";
 
 const ContactSection = () => {
   const ref = useRef(null);
