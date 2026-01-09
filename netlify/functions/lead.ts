@@ -13,35 +13,24 @@ export const handler: Handler = async (event) => {
       return { statusCode: 500, body: "Server misconfigured" };
     }
 
-    const signature = event.headers["x-webhook-signature"];
     const body = event.body || "";
 
-    if (!signature) {
-      console.warn("Missing signature");
-      return { statusCode: 401, body: "Missing signature" };
-    }
-
+    // Firmamos AQUÍ (Netlify → n8n)
     const hmac = crypto.createHmac("sha256", secret);
     hmac.update(body, "utf8");
-    const expectedSignature = hmac.digest("hex");
-
-    if (signature !== expectedSignature) {
-      console.warn("Invalid signature");
-      return { statusCode: 401, body: "Invalid signature" };
-    }
-
-    console.info("Valid webhook received");
+    const signature = hmac.digest("hex");
 
     const response = await fetch(
       "https://workflows.n8nmayidevai.site/webhook/lead-web",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-webhook-signature": signature,
+        },
         body,
       }
     );
-
-    console.info("Forwarded to n8n:", response.status);
 
     const text = await response.text();
 
@@ -50,7 +39,10 @@ export const handler: Handler = async (event) => {
       body: text,
     };
   } catch (err) {
-    console.error("Function crash:", err);
-    return { statusCode: 500, body: "Internal error" };
+    console.error(err);
+    return {
+      statusCode: 500,
+      body: "Internal error",
+    };
   }
 };
