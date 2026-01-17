@@ -13,11 +13,16 @@ const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!privacyAccepted) return;
+
     setIsSubmitting(true);
 
     try {
@@ -28,6 +33,7 @@ const ContactSection = () => {
         email: formData.get("email"),
         company: formData.get("company"),
         message: formData.get("message"),
+        privacyAccepted: true,
         source: "landing-mayidevai",
         submittedAt: new Date().toISOString(),
       };
@@ -156,9 +162,45 @@ const ContactSection = () => {
                     <Input name="name" placeholder="Tu nombre" required />
                     <Input name="email" type="email" placeholder="tu@email.com" required />
                     <Input name="company" placeholder="Empresa" />
-                    <Textarea name="message" required />
+                    <Textarea name="message" placeholder="Cuéntame brevemente tu caso" required />
 
-                    <Button type="submit" disabled={isSubmitting}>
+                    {/* Consentimiento RGPD */}
+                    <div className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <input
+                        type="checkbox"
+                        id="privacy"
+                        checked={privacyAccepted}
+                        onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                        className="mt-1"
+                        required
+                      />
+                      <label htmlFor="privacy">
+                        He leído y acepto la{" "}
+                        <a
+                          href="/politica-privacidad.html"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-primary"
+                        >
+                          Política de Privacidad
+                        </a>
+                      </label>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Responsable: MayidevAI · Finalidad: responder a tu solicitud y gestionar la relación profesional ·
+                      Información adicional en la{" "}
+                      <a
+                        href="/politica-privacidad.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:text-primary"
+                      >
+                        Política de Privacidad
+                      </a>
+                    </p>
+
+
+                    <Button type="submit" disabled={isSubmitting || !privacyAccepted}>
                       {isSubmitting ? "Enviando..." : "Enviar"}
                     </Button>
                   </>
