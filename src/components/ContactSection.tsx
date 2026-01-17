@@ -159,10 +159,10 @@ const ContactSection = () => {
                   </div>
                 ) : (
                   <>
-                    <Input name="name" placeholder="Tu nombre" required />
-                    <Input name="email" type="email" placeholder="tu@email.com" required />
-                    <Input name="company" placeholder="Empresa" />
-                    <Textarea name="message" placeholder="Cuéntame brevemente tu caso" required />
+                    <Input name="name" placeholder="Tu nombre" autoComplete="name" required />
+                    <Input name="email" type="email" placeholder="tu@email.com" autoComplete="email" required />
+                    <Input name="company" placeholder="Empresa" autoComplete="organization"/>
+                    <Textarea name="message" placeholder="Cuéntame brevemente tu caso" autoComplete="off" required />
 
                     {/* Consentimiento RGPD */}
                     <div className="flex items-start gap-3 text-sm text-muted-foreground">
