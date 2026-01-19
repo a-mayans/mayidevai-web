@@ -66,9 +66,9 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-lg md:text-xl text-muted-foreground mb-16 max-w-2xl mx-auto"
           >
-            Diseño e implemento automatizaciones con n8n, APIs e inteligencia artificial
-            para eliminar tareas manuales, errores humanos y cuellos de botella.
-            Menos trabajo operativo. Más foco en crecer.
+            Diseño e implemento automatizaciones con n8n, APIs e inteligencia
+            artificial para eliminar tareas manuales, errores humanos y cuellos
+            de botella. Menos trabajo operativo. Más foco en crecer.
           </motion.p>
 
           <motion.div
@@ -81,7 +81,20 @@ const HeroSection = () => {
               variant="hero"
               size="xl"
               onClick={() => scrollToSection("#contacto")}
-              className="group"
+              className="
+                group
+                w-full sm:w-auto
+                min-h-[52px]
+                px-6
+                py-3
+                flex
+                items-center
+                justify-center
+                gap-2
+                text-center
+                whitespace-normal
+                leading-tight
+              "
             >
               Diagnóstico gratuito de automatización
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -90,6 +103,7 @@ const HeroSection = () => {
               variant="heroOutline"
               size="xl"
               onClick={() => scrollToSection("#servicios")}
+              className="w-full sm:w-auto"
             >
               Ver servicios
             </Button>
