@@ -1,0 +1,16 @@
+# Force LF for all text files
+* text=auto eol=lf
+
+# Explicitly mark common binnaries
+* .png binary
+* .jpg binary
+* .jpeg binary
+* .gif binary
+* .webp binary
+* .svg binary
+* .ico binary
+* .pdf binary
+* .zip binary
+* .gz binary
+* .woff binary
+* .woff2 binary
