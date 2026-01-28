@@ -392,7 +392,9 @@ const SistemaActasIA = () => {
                       <Button
                         variant="hero"
                         size="xl"
-                        onClick={() => navigate("/#contacto")}
+                        onClick={() =>
+                          navigate("/", { state: { scrollTo: "contacto" } })
+                        }
                         className="group"
                       >
                         Solicitar diagnóstico

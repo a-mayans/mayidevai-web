@@ -12,6 +12,7 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
+    // Opción A: scroll por hash (si alguna vez lo usas)
     if (location.hash) {
       const element = document.querySelector(location.hash);
       if (element) {
@@ -19,6 +20,19 @@ const Index = () => {
           element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
+    }
+
+    // Opción B: scroll por state (CTA desde páginas internas)
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+
+      // 🔑 Limpieza del state para evitar scroll en refresh
+      window.history.replaceState({}, document.title);
     }
   }, [location]);
 
