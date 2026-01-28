@@ -18,56 +18,61 @@ const useCases = [
     title: "Automatización de facturas",
     description:
       "Extracción automática de datos de facturas, validación y registro en tu sistema contable sin intervención manual.",
-    savings: "Ahorra 10+ horas/semana",
+    tags: ["Ahorra 10+ horas/semana"],
   },
   {
     icon: MessageSquare,
     title: "Chatbots de atención al cliente",
     description:
       "Bots inteligentes que responden consultas 24/7, escalan casos complejos y aprenden de cada interacción.",
-    savings: "Atención automática 24/7",
+    tags: ["Atención automática 24/7"],
   },
   {
     icon: Calendar,
     title: "Gestión de citas y reservas",
     description:
       "Sistema automatizado de reservas con confirmaciones, recordatorios y sincronización con calendarios.",
-    savings: "Menos no-shows y cancelaciones",
+    tags: ["Menos no-shows y cancelaciones"],
   },
   {
     icon: ShoppingCart,
     title: "Automatización de e-commerce",
     description:
       "Sincronización de inventario, procesamiento de pedidos, notificaciones y seguimiento automatizado.",
-    savings: "Procesos escalables",
+    tags: ["Procesos escalables"],
   },
   {
     icon: Users,
     title: "Onboarding de clientes",
     description:
       "Flujos automáticos para dar la bienvenida, recopilar información y activar nuevos clientes sin esfuerzo.",
-    savings: "Alta de clientes en minutos",
+    tags: ["Alta de clientes en minutos"],
   },
   {
     icon: Bell,
     title: "Alertas y notificaciones",
     description:
       "Sistema de alertas personalizadas basadas en eventos, métricas o condiciones específicas de tu negocio.",
-    savings: "Control en tiempo real",
+    tags: ["Control en tiempo real"],
   },
   {
     icon: FileText,
-    title: "Generación de documentos",
+    title: "Sistema de actas con IA",
     description:
-      "Creación automática de contratos, propuestas y reportes personalizados a partir de plantillas.",
-    savings: "Documentos sin trabajo manual",
+      "Automatización completa de la generación de actas de obra mediante chatbot con IA, incluyendo creación del documento y organización automática por proyecto en Google Drive.",
+    tags: [
+      "Generación de documentos",
+      "IA aplicada",
+      "Automatización operativa",
+    ],
+    link: "/casos/sistema-actas-ia",
   },
   {
     icon: Globe,
     title: "Sincronización multi-plataforma",
     description:
       "Mantén tus datos sincronizados entre CRM, ERP, email marketing y todas tus herramientas.",
-    savings: "Datos siempre coherentes",
+    tags: ["Datos siempre coherentes"],
   },
 ];
 
@@ -91,8 +96,8 @@ const UseCasesSection = () => {
             <span className="text-gradient">las empresas demandan</span>
           </h2>
           <p className="text-muted-foreground">
-            Casos de uso reales que diseño e implemento para optimizar operaciones,
-            reducir trabajo manual y escalar procesos.
+            Casos de éxito reales que diseño e implemento para optimizar
+            operaciones, reducir trabajo manual y escalar procesos.
           </p>
         </motion.div>
 
@@ -103,10 +108,17 @@ const UseCasesSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group relative bg-gradient-card rounded-xl p-6 shadow-soft hover:shadow-card transition-all duration-300 border border-border/50 hover:border-secondary/30 cursor-pointer"
+              className="group relative bg-gradient-card rounded-xl p-6 shadow-soft hover:shadow-card transition-all duration-300 border border-border/50 hover:border-secondary/30 flex flex-col h-full"
             >
-              <div className="absolute top-0 right-0 px-3 py-1 text-xs font-medium text-secondary bg-secondary/10 rounded-bl-xl rounded-tr-xl">
-                {useCase.savings}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {useCase.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-1 text-[10px] font-medium text-secondary bg-secondary/10 rounded-md"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
               <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4 group-hover:bg-gradient-accent transition-colors duration-300">
                 <useCase.icon className="w-6 h-6 text-primary group-hover:text-secondary-foreground transition-colors duration-300" />
@@ -114,9 +126,17 @@ const UseCasesSection = () => {
               <h3 className="font-semibold font-display text-lg mb-2">
                 {useCase.title}
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-6 flex-grow">
                 {useCase.description}
               </p>
+              {useCase.link && (
+                <a
+                  href={useCase.link}
+                  className="inline-flex items-center text-sm font-semibold text-secondary hover:underline gap-1 mt-auto"
+                >
+                  Ver caso completo →
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
