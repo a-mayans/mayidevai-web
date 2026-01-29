@@ -1,32 +1,162 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@/assets/logo-mayidevai.png";
 
+const ACTIVE_BLUE = "text-[#2DA8FF]";
+const INACTIVE = "text-foreground/80 hover:text-[#2DA8FF]";
+
+// Ajusta si tu navbar real ocupa más/menos (h-16=64, md:h-20=80)
+const NAVBAR_OFFSET_PX = 300;
+
 const navLinks = [
-  { href: "#inicio", label: "Inicio" },
-  { href: "#sobre-mi", label: "Sobre mí" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#casos", label: "Casos de éxito" },
+  { id: "inicio", label: "Inicio", path: "/" },
+  { id: "sobre-mi", label: "Sobre mí", path: "/sobre-mi" },
+  { id: "servicios", label: "Servicios", path: "/servicios" },
+  { id: "casos", label: "Casos de éxito", path: "/casos" },
 ];
+
+const SECTION_IDS = ["inicio", "sobre-mi", "servicios", "casos", "contacto"];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const scrollToSection = (href: string) => {
+  // 🔒 lock para evitar que el scroll spy pise los clicks (scroll suave)
+  const manualLockRef = useRef(false);
+  const lockTimeoutRef = useRef<number | null>(null);
+
+  const setManualActive = (id: string) => {
+    manualLockRef.current = true;
+    setActiveSection(id);
+
+    if (lockTimeoutRef.current) window.clearTimeout(lockTimeoutRef.current);
+    lockTimeoutRef.current = window.setTimeout(() => {
+      manualLockRef.current = false;
+    }, 700);
+  };
+
+  // Activo por pathname cuando NO estás en "/"
+  const activeFromPath = useMemo(() => {
+    const match = navLinks.find((l) => l.path === location.pathname);
+    return match?.id ?? null;
+  }, [location.pathname]);
+
+  const scrollToSection = (id: string) => {
+    setManualActive(id);
+
     if (location.pathname !== "/") {
-      navigate("/" + href);
+      navigate("/", { state: { scrollTo: id } });
     } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+      if (id === "inicio") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        document.getElementById(id)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }
     }
+
     setIsOpen(false);
+  };
+
+  // Scroll cuando vienes desde otra ruta
+  useEffect(() => {
+    const scrollTo = (location.state as any)?.scrollTo as string | undefined;
+
+    if (location.pathname === "/" && scrollTo) {
+      setManualActive(scrollTo);
+
+      setTimeout(() => {
+        if (scrollTo === "inicio") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          document.getElementById(scrollTo)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+        navigate("/", { replace: true });
+      }, 120);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  // ✅ Scroll spy robusto (funciona bajando y subiendo)
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const getActiveByScroll = () => {
+      if (manualLockRef.current) return;
+
+      // Inicio si estás arriba del todo (o casi)
+      if (window.scrollY < 80) {
+        setActiveSection("inicio");
+        return;
+      }
+
+      const els = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+        Boolean,
+      ) as HTMLElement[];
+
+      if (!els.length) return;
+
+      // Elegimos la "última" sección cuyo top ya pasó el offset del navbar
+      let currentId = "inicio";
+
+      for (const el of els) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= NAVBAR_OFFSET_PX) {
+          currentId = el.id;
+        } else {
+          // como están en orden en el DOM, puedes cortar aquí
+          // pero si no estás seguro del orden, comenta este break
+          // break;
+        }
+      }
+
+      setActiveSection(currentId);
+    };
+
+    // Throttle con rAF (muy suave)
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        getActiveByScroll();
+        ticking = false;
+      });
+    };
+
+    // Ejecuta una vez al montar (por si entras en mitad de la página)
+    getActiveByScroll();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [location.pathname]);
+
+  // cleanup timer
+  useEffect(() => {
+    return () => {
+      if (lockTimeoutRef.current) window.clearTimeout(lockTimeoutRef.current);
+    };
+  }, []);
+
+  const isLinkActive = (id: string) => {
+    if (location.pathname !== "/") return activeFromPath === id;
+    return activeSection === id;
   };
 
   return (
@@ -38,9 +168,9 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a
-            href="#inicio"
-            onClick={() => scrollToSection("#inicio")}
+          {/* Logo */}
+          <button
+            onClick={() => scrollToSection("inicio")}
             className="flex items-center gap-2"
           >
             <img
@@ -48,39 +178,40 @@ const Navbar = () => {
               alt="MayidevAI"
               className="h-10 md:h-12 w-auto"
             />
-          </a>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200"
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={[
+                  "text-sm font-medium transition-colors",
+                  isLinkActive(link.id) ? ACTIVE_BLUE : INACTIVE,
+                ].join(" ")}
               >
                 {link.label}
               </button>
             ))}
+
             <Button
               variant="hero"
               size="sm"
-              onClick={() => scrollToSection("#contacto")}
+              onClick={() => scrollToSection("contacto")}
             >
               Hablemos
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
-          >
+          {/* Mobile */}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -92,17 +223,21 @@ const Navbar = () => {
             <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
               {navLinks.map((link) => (
                 <button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="py-2 text-left text-foreground/80 hover:text-primary transition-colors"
+                  key={link.id}
+                  onClick={() => scrollToSection(link.id)}
+                  className={[
+                    "py-2 text-left transition-colors font-medium",
+                    isLinkActive(link.id) ? ACTIVE_BLUE : INACTIVE,
+                  ].join(" ")}
                 >
                   {link.label}
                 </button>
               ))}
+
               <Button
                 variant="hero"
                 className="mt-2"
-                onClick={() => scrollToSection("#contacto")}
+                onClick={() => scrollToSection("contacto")}
               >
                 Hablemos
               </Button>

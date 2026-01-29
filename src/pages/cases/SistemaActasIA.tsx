@@ -18,6 +18,16 @@ import { useNavigate } from "react-router-dom";
 const SistemaActasIA = () => {
   const navigate = useNavigate();
 
+  const handleCTAClick = () => {
+    navigate("/", { replace: true });
+    setTimeout(() => {
+      const element = document.querySelector("#contacto");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -392,9 +402,7 @@ const SistemaActasIA = () => {
                       <Button
                         variant="hero"
                         size="xl"
-                        onClick={() =>
-                          navigate("/", { state: { scrollTo: "contacto" } })
-                        }
+                        onClick={handleCTAClick}
                         className="group"
                       >
                         Solicitar diagnóstico

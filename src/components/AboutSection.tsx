@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Zap, Target, Users, Award } from "lucide-react";
 
@@ -31,7 +30,7 @@ const values = [
 ];
 
 const AboutSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
@@ -40,6 +39,7 @@ const AboutSection = () => {
 
       <div className="container mx-auto px-4" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Texto */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -76,6 +76,7 @@ const AboutSection = () => {
             </div>
           </motion.div>
 
+          {/* Valores */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -93,9 +94,11 @@ const AboutSection = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
                   <value.icon className="w-6 h-6 text-primary-foreground" />
                 </div>
+
                 <h3 className="font-semibold font-display text-lg mb-2">
                   {value.title}
                 </h3>
+
                 <p className="text-sm text-muted-foreground">
                   {value.description}
                 </p>
