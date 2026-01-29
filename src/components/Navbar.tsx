@@ -8,7 +8,7 @@ import logoImage from "@/assets/logo-mayidevai.png";
 const ACTIVE_BLUE = "text-[#2DA8FF]";
 const INACTIVE = "text-foreground/80 hover:text-[#2DA8FF]";
 
-// Ajusta si tu navbar real ocupa más/menos (h-16=64, md:h-20=80)
+// Ajusta según la altura real de tu navbar
 const NAVBAR_OFFSET_PX = 300;
 
 const navLinks = [
@@ -27,7 +27,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔒 lock para evitar que el scroll spy pise los clicks (scroll suave)
+  // 🔒 Evita que el scroll spy pise un click manual
   const manualLockRef = useRef(false);
   const lockTimeoutRef = useRef<number | null>(null);
 
@@ -35,7 +35,10 @@ const Navbar = () => {
     manualLockRef.current = true;
     setActiveSection(id);
 
-    if (lockTimeoutRef.current) window.clearTimeout(lockTimeoutRef.current);
+    if (lockTimeoutRef.current) {
+      window.clearTimeout(lockTimeoutRef.current);
+    }
+
     lockTimeoutRef.current = window.setTimeout(() => {
       manualLockRef.current = false;
     }, 700);
@@ -47,26 +50,34 @@ const Navbar = () => {
     return match?.id ?? null;
   }, [location.pathname]);
 
-  const scrollToSection = (id: string) => {
+  // 🔽 Scroll centralizado (desktop + mobile)
+  const scrollToSection = (id: string, fromMobile = false) => {
     setManualActive(id);
 
-    if (location.pathname !== "/") {
-      navigate("/", { state: { scrollTo: id } });
-    } else {
-      if (id === "inicio") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    const doScroll = () => {
+      if (location.pathname !== "/") {
+        navigate("/", { state: { scrollTo: id } });
       } else {
-        document.getElementById(id)?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+        if (id === "inicio") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          document.getElementById(id)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       }
-    }
+    };
 
-    setIsOpen(false);
+    if (fromMobile) {
+      setIsOpen(false);
+      setTimeout(doScroll, 250); // espera a que cierre el menú
+    } else {
+      doScroll();
+    }
   };
 
-  // Scroll cuando vienes desde otra ruta
+  // Scroll al volver desde páginas dedicadas
   useEffect(() => {
     const scrollTo = (location.state as any)?.scrollTo as string | undefined;
 
@@ -88,14 +99,13 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  // ✅ Scroll spy robusto (funciona bajando y subiendo)
+  // 🧭 Scroll spy (subiendo y bajando)
   useEffect(() => {
     if (location.pathname !== "/") return;
 
     const getActiveByScroll = () => {
       if (manualLockRef.current) return;
 
-      // Inicio si estás arriba del todo (o casi)
       if (window.scrollY < 80) {
         setActiveSection("inicio");
         return;
@@ -105,26 +115,18 @@ const Navbar = () => {
         Boolean,
       ) as HTMLElement[];
 
-      if (!els.length) return;
-
-      // Elegimos la "última" sección cuyo top ya pasó el offset del navbar
       let currentId = "inicio";
 
       for (const el of els) {
         const rect = el.getBoundingClientRect();
         if (rect.top <= NAVBAR_OFFSET_PX) {
           currentId = el.id;
-        } else {
-          // como están en orden en el DOM, puedes cortar aquí
-          // pero si no estás seguro del orden, comenta este break
-          // break;
         }
       }
 
       setActiveSection(currentId);
     };
 
-    // Throttle con rAF (muy suave)
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
@@ -135,9 +137,7 @@ const Navbar = () => {
       });
     };
 
-    // Ejecuta una vez al montar (por si entras en mitad de la página)
     getActiveByScroll();
-
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
@@ -147,10 +147,12 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  // cleanup timer
+  // Cleanup
   useEffect(() => {
     return () => {
-      if (lockTimeoutRef.current) window.clearTimeout(lockTimeoutRef.current);
+      if (lockTimeoutRef.current) {
+        window.clearTimeout(lockTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -224,7 +226,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.id}
-                  onClick={() => scrollToSection(link.id)}
+                  onClick={() => scrollToSection(link.id, true)}
                   className={[
                     "py-2 text-left transition-colors font-medium",
                     isLinkActive(link.id) ? ACTIVE_BLUE : INACTIVE,
@@ -237,7 +239,7 @@ const Navbar = () => {
               <Button
                 variant="hero"
                 className="mt-2"
-                onClick={() => scrollToSection("contacto")}
+                onClick={() => scrollToSection("contacto", true)}
               >
                 Hablemos
               </Button>
