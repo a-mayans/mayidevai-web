@@ -12,13 +12,21 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.hash) {
-      const element = document.querySelector(location.hash);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
+    const scrollTo = (location.state as { scrollTo?: string })?.scrollTo;
+
+    if (!scrollTo) {
+      // navegación normal → inicio
+      window.scrollTo({ top: 0 });
+      return;
+    }
+
+    const element = document.getElementById(scrollTo);
+
+    if (element) {
+      // pequeño delay para asegurar render
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
   }, [location]);
 

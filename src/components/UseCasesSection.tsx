@@ -17,43 +17,73 @@ const useCases = [
     icon: Receipt,
     title: "Automatización de facturas",
     description:
-      "Extracción automática de datos de facturas, validación y registro en tu sistema contable sin intervención manual.",
-    tags: ["Ahorra 10+ horas/semana"],
+      "Automatización del procesamiento de facturas mediante extracción inteligente de datos, validación y registro automático en el sistema contable, eliminando tareas manuales y reduciendo errores administrativos.",
+    tags: [
+      "Extracción de datos",
+      "Automatización contable",
+      "Control financiero",
+    ],
+    link: "/casos/automatizacion-facturas",
   },
   {
     icon: MessageSquare,
     title: "Chatbots de atención al cliente",
     description:
-      "Bots inteligentes que responden consultas 24/7, escalan casos complejos y aprenden de cada interacción.",
-    tags: ["Atención automática 24/7"],
+      "Sistemas de atención al cliente basados en IA que responden consultas frecuentes en tiempo real, filtran solicitudes, recopilan información clave y escalan solo los casos que requieren intervención humana.",
+    tags: [
+      "Atención automática 24/7",
+      "IA conversacional",
+      "Escalado de soporte",
+    ],
+    link: "/casos/chatbots-atencion-cliente",
   },
   {
     icon: Calendar,
     title: "Gestión de citas y reservas",
     description:
-      "Sistema automatizado de reservas con confirmaciones, recordatorios y sincronización con calendarios.",
-    tags: ["Menos no-shows y cancelaciones"],
+      "Sistema automatizado de gestión de citas con confirmaciones, recordatorios y sincronización en tiempo real con calendarios, reduciendo ausencias y carga administrativa.",
+    tags: [
+      "Menos no-shows",
+      "Automatización operativa",
+      "Sincronización de calendarios",
+    ],
+    link: "/casos/gestion-citas",
   },
   {
     icon: ShoppingCart,
     title: "Automatización de e-commerce",
     description:
-      "Sincronización de inventario, procesamiento de pedidos, notificaciones y seguimiento automatizado.",
-    tags: ["Procesos escalables"],
+      "Automatización de pedidos, inventario y notificaciones para que la tienda online funcione de forma escalable, reduciendo errores manuales y tiempos de gestión.",
+    tags: [
+      "Procesos escalables",
+      "Optimización de flujos",
+      "Gestión de pedidos",
+    ],
+    link: "/casos/automatizacion-ecommerce",
   },
   {
     icon: Users,
     title: "Onboarding de clientes",
     description:
-      "Flujos automáticos para dar la bienvenida, recopilar información y activar nuevos clientes sin esfuerzo.",
-    tags: ["Alta de clientes en minutos"],
+      "Automatización del proceso de alta de nuevos clientes: recopilación de información, validaciones, creación de registros y activación de flujos internos sin intervención manual.",
+    tags: [
+      "Alta de clientes en minutos",
+      "Flujos automatizados",
+      "Experiencia de cliente",
+    ],
+    link: "/casos/onboarding-clientes",
   },
   {
     icon: Bell,
     title: "Alertas y notificaciones",
     description:
-      "Sistema de alertas personalizadas basadas en eventos, métricas o condiciones específicas de tu negocio.",
-    tags: ["Control en tiempo real"],
+      "Sistema de alertas automatizadas basadas en eventos, métricas o condiciones del negocio para mantener el control operativo en tiempo real y reaccionar sin depender de revisiones manuales.",
+    tags: [
+      "Control en tiempo real",
+      "Notificaciones automáticas",
+      "Gestión por eventos",
+    ],
+    link: "/casos/alertas-notificaciones",
   },
   {
     icon: FileText,
@@ -71,8 +101,13 @@ const useCases = [
     icon: Globe,
     title: "Sincronización multi-plataforma",
     description:
-      "Mantén tus datos sincronizados entre CRM, ERP, email marketing y todas tus herramientas.",
-    tags: ["Datos siempre coherentes"],
+      "Integración y sincronización automática de datos entre CRM, ERP, email marketing y otras herramientas para evitar duplicidades, errores manuales y mantener una única fuente de verdad en toda la operativa.",
+    tags: [
+      "Datos siempre coherentes",
+      "Integración de sistemas",
+      "Automatización entre herramientas",
+    ],
+    link: "/casos/sincronizacion-multiplataforma",
   },
 ];
 

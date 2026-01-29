@@ -2,14 +2,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@/assets/logo-mayidevai.png";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <section
@@ -80,7 +76,7 @@ const HeroSection = () => {
             <Button
               variant="hero"
               size="xl"
-              onClick={() => scrollToSection("#contacto")}
+              onClick={() => navigate("/contacto")}
               className="
                 group
                 w-full sm:w-auto
@@ -99,10 +95,11 @@ const HeroSection = () => {
               Diagnóstico gratuito de automatización
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
+
             <Button
               variant="heroOutline"
               size="xl"
-              onClick={() => scrollToSection("#servicios")}
+              onClick={() => navigate("/servicios")}
               className="w-full sm:w-auto"
             >
               Ver servicios
