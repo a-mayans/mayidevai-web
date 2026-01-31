@@ -2,11 +2,15 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@/assets/logo-mayidevai.png";
-import { useNavigate } from "react-router-dom";
+
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 const HeroSection = () => {
-  const navigate = useNavigate();
-
   return (
     <section
       id="inicio"
@@ -76,7 +80,7 @@ const HeroSection = () => {
             <Button
               variant="hero"
               size="xl"
-              onClick={() => navigate("/contacto")}
+              onClick={() => scrollToSection("contacto")}
               className="
                 group
                 w-full sm:w-auto
@@ -99,7 +103,7 @@ const HeroSection = () => {
             <Button
               variant="heroOutline"
               size="xl"
-              onClick={() => navigate("/servicios")}
+              onClick={() => scrollToSection("servicios")}
               className="w-full sm:w-auto"
             >
               Ver servicios
