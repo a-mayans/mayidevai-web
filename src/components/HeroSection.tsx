@@ -56,7 +56,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-10 leading-tight"
           >
-            Automatiza cosas, reduce costes y escala tu negocio con{" "}
+            Automatiza procesos, reduce costes y escala tu negocio con{" "}
             <span className="text-gradient">IA aplicada</span>
           </motion.h1>
 
