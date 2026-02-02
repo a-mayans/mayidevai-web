@@ -8,7 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 // Endpoint del webhook (Vite env)
-const N8N_WEBHOOK_LEAD = import.meta.env.VITE_N8N_WEBHOOK_LEAD;
+const N8N_WEBHOOK_LEAD =
+  import.meta.env.VITE_N8N_WEBHOOK_LEAD ||
+  "https://workflows.n8nmayidevai.site/webhook/lead-web";
 
 const ContactSection = () => {
   const { ref, inView: isInView } = useInView({
