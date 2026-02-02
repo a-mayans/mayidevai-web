@@ -14,4 +14,4 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -d '{"branch":"main"}' \
-            https://dokploy.n8nmayidevai.site/api/deploy/eQcdWsf3XKPm6Z1oxp_Oi
+            https://dokploy.n8nmayidevai.site/api/deploy/8JdLkuDzSjzLrxcL-CK2W
