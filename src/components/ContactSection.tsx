@@ -1,17 +1,21 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Mail, Send, CheckCircle } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { useState } from "react";
+import { Mail, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-const N8N_WEBHOOK_URL = "https://mayidevai.com/.netlify/functions/lead";
+// Endpoint del webhook (Vite env)
+const N8N_WEBHOOK_LEAD = import.meta.env.VITE_N8N_WEBHOOK_LEAD;
 
 const ContactSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { ref, inView: isInView } = useInView({
+    triggerOnce: true,
+    rootMargin: "-100px",
+  });
+
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,7 +24,6 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!privacyAccepted) return;
 
     setIsSubmitting(true);
@@ -38,13 +41,17 @@ const ContactSection = () => {
         submittedAt: new Date().toISOString(),
       };
 
-      await fetch(N8N_WEBHOOK_URL, {
+      const response = await fetch(N8N_WEBHOOK_LEAD, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
+
+      if (!response.ok) {
+        throw new Error("Webhook error");
+      }
 
       setIsSubmitted(true);
       toast({
@@ -113,8 +120,8 @@ const ContactSection = () => {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Respondo personalmente en menos de 24 horas.
-                  Analizamos tu caso sin compromiso.
+                  Respondo personalmente en menos de 24 horas. Analizamos tu
+                  caso sin compromiso.
                 </p>
               </div>
 
@@ -123,22 +130,17 @@ const ContactSection = () => {
                   ¿Qué incluye la consultoría?
                 </h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Análisis de procesos actuales
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Propuesta de automatización adaptada a tu negocio
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Estimación real de ahorro de tiempo y costes
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                    Plan de implementación claro y accionable
-                  </li>
+                  {[
+                    "Análisis de procesos actuales",
+                    "Propuesta de automatización adaptada a tu negocio",
+                    "Estimación real de ahorro de tiempo y costes",
+                    "Plan de implementación claro y accionable",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -159,10 +161,29 @@ const ContactSection = () => {
                   </div>
                 ) : (
                   <>
-                    <Input name="name" placeholder="Tu nombre" autoComplete="name" required />
-                    <Input name="email" type="email" placeholder="tu@email.com" autoComplete="email" required />
-                    <Input name="company" placeholder="Empresa" autoComplete="organization"/>
-                    <Textarea name="message" placeholder="Cuéntame brevemente tu caso" autoComplete="off" required />
+                    <Input
+                      name="name"
+                      placeholder="Tu nombre"
+                      autoComplete="name"
+                      required
+                    />
+                    <Input
+                      name="email"
+                      type="email"
+                      placeholder="tu@email.com"
+                      autoComplete="email"
+                      required
+                    />
+                    <Input
+                      name="company"
+                      placeholder="Empresa"
+                      autoComplete="organization"
+                    />
+                    <Textarea
+                      name="message"
+                      placeholder="Cuéntame brevemente tu caso"
+                      required
+                    />
 
                     {/* Consentimiento RGPD */}
                     <div className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -186,8 +207,10 @@ const ContactSection = () => {
                         </a>
                       </label>
                     </div>
+
                     <p className="text-xs text-muted-foreground">
-                      Responsable: MayidevAI · Finalidad: responder a tu solicitud y gestionar la relación profesional ·
+                      Responsable: MayidevAI · Finalidad: responder a tu
+                      solicitud y gestionar la relación profesional ·
                       Información adicional en la{" "}
                       <a
                         href="/politica-privacidad.html"
@@ -199,8 +222,10 @@ const ContactSection = () => {
                       </a>
                     </p>
 
-
-                    <Button type="submit" disabled={isSubmitting || !privacyAccepted}>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting || !privacyAccepted}
+                    >
                       {isSubmitting ? "Enviando..." : "Enviar"}
                     </Button>
                   </>
