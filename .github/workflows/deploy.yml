@@ -11,6 +11,4 @@ jobs:
     steps:
       - name: Trigger Dokploy deploy
         run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            https://dokploy.n8nmayidevai.site/api/deploy/8JdLkuDzSjzLrxcL-CK2W
+          curl -X POST https://dokploy.n8nmayidevai.site/api/deploy/8JdLkuDzSjzLrxcL-CK2W
