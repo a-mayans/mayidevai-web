@@ -1,5 +1,6 @@
 # Build
 FROM node:20-alpine AS build
+ENV NODE_ENV=production
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
