@@ -5,6 +5,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+ARG VITE_N8N_WEBHOOK_LEAD
+ENV VITE_N8N_WEBHOOK_LEAD=$VITE_N8N_WEBHOOK_LEAD
 RUN npm run build
 
 # Serve
