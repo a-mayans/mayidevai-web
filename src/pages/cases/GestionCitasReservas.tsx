@@ -91,7 +91,7 @@ const GestionCitasReservas = () => {
                     manual.
                   </p>
                   <p>
-                    Con más de 50 citas diarias, la carga de trabajo para
+                    Con más de 20 citas diarias, la carga de trabajo para
                     confirmar asistencias consumía horas del personal de
                     recepción, distrayéndolos de la atención en sala.
                   </p>
