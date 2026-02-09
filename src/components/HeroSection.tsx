@@ -33,7 +33,7 @@ const HeroSection = () => {
           >
             <img
               src={logoImage}
-              alt="MayidevAI"
+              alt="MayidevAI - Automatización de procesos e Inteligencia Artificial"
               className="w-64 md:w-80 lg:w-96 h-auto mx-auto animate-float"
             />
           </motion.div>

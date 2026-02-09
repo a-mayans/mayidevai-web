@@ -34,9 +34,33 @@ const GestionCitasReservas = () => {
     <div className="min-h-screen">
       <SEO
         title="Gestión de Citas y Reservas Automatizada - Caso de Éxito"
-        description="Sistema inteligente de recordatorios para eliminar inasistencias y optimizar la agenda. Reducción del 85% en no-shows. Caso real implementado."
+        description="Sistema inteligente de recordatorios para eliminar inasistencias y optimizar la agenda. Reducción del 85% en no-shows. Caso real implementado para clínica."
         canonical="https://mayidevai.com/casos/gestion-citas"
         keywords="gestión citas, reservas automatizadas, recordatorios WhatsApp, clínica estética, reducir no-shows"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://mayidevai.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Casos de Éxito",
+              item: "https://mayidevai.com/#casos",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "Gestión de Citas y Reservas",
+              item: "https://mayidevai.com/casos/gestion-citas",
+            },
+          ],
+        }}
       />
       <Navbar />
 
@@ -64,9 +88,25 @@ const GestionCitasReservas = () => {
                 Sistema inteligente de recordatorios para eliminar inasistencias
                 y optimizar la agenda
               </p>
-              <p className="text-sm text-muted-foreground bg-muted/30 inline-block px-4 py-2 rounded-lg">
-                Implementado para una clínica de estética y bienestar de alto
-                volumen.
+              <p className="text-sm text-muted-foreground bg-muted/30 inline-flex items-center gap-x-4 px-4 py-2 rounded-lg">
+                <span>
+                  Implementado para una clínica de estética y bienestar de alto
+                  volumen.
+                </span>
+                <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+                <span>
+                  Por:{" "}
+                  <span className="font-semibold text-foreground">
+                    MayidevAI
+                  </span>
+                </span>
+                <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+                <span>
+                  Actualizado:{" "}
+                  <span className="font-semibold text-foreground">
+                    Febrero 2024
+                  </span>
+                </span>
               </p>
             </motion.div>
           </div>

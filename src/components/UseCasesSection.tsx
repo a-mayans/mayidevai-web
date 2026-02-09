@@ -168,6 +168,7 @@ const UseCasesSection = () => {
                 <a
                   href={useCase.link}
                   className="inline-flex items-center text-sm font-semibold text-secondary hover:underline gap-1 mt-auto"
+                  aria-label={`Ver caso completo sobre ${useCase.title}`}
                 >
                   Ver caso completo →
                 </a>

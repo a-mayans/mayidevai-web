@@ -177,7 +177,7 @@ const Navbar = () => {
           >
             <img
               src={logoImage}
-              alt="MayidevAI"
+              alt="MayidevAI - Especialistas en Automatización e IA para Empresas"
               className="h-10 md:h-12 w-auto"
             />
           </button>

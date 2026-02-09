@@ -7,6 +7,7 @@ interface SEOProps {
   ogImage?: string;
   ogType?: string;
   keywords?: string;
+  schema?: object;
 }
 
 const SEO = ({
@@ -16,6 +17,7 @@ const SEO = ({
   ogImage = "https://mayidevai.com/og-mayidevai.png",
   ogType = "website",
   keywords,
+  schema,
 }: SEOProps) => {
   const fullTitle = title.includes("MayidevAI")
     ? title
@@ -27,6 +29,11 @@ const SEO = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       {canonical && <link rel="canonical" href={canonical} />}
+
+      {/* Structured Data */}
+      {schema && (
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      )}
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />

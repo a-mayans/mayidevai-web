@@ -36,6 +36,30 @@ const SistemaActasIA = () => {
         description="Automatización real para generar, entregar y organizar actas de obra sin trabajo administrativo. Caso de éxito implementado para empresa de reformas."
         canonical="https://mayidevai.com/casos/sistema-actas-ia"
         keywords="actas de obra, automatización IA, gestión documental, reformas, arquitectura"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://mayidevai.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Casos de Éxito",
+              item: "https://mayidevai.com/#casos",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "Sistema de Actas de Obra con IA",
+              item: "https://mayidevai.com/casos/sistema-actas-ia",
+            },
+          ],
+        }}
       />
       <Navbar />
 
@@ -62,9 +86,25 @@ const SistemaActasIA = () => {
                 Automatización real para generar, entregar y organizar actas de
                 obra sin trabajo administrativo
               </p>
-              <p className="text-sm text-muted-foreground bg-muted/30 inline-block px-4 py-2 rounded-lg">
-                Implementado para una empresa de reformas, arquitectura y diseño
-                de interiores.
+              <p className="text-sm text-muted-foreground bg-muted/30 inline-flex items-center gap-x-4 px-4 py-2 rounded-lg">
+                <span>
+                  Implementado para una empresa de reformas, arquitectura y
+                  diseño de interiores.
+                </span>
+                <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+                <span>
+                  Por:{" "}
+                  <span className="font-semibold text-foreground">
+                    MayidevAI
+                  </span>
+                </span>
+                <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+                <span>
+                  Actualizado:{" "}
+                  <span className="font-semibold text-foreground">
+                    Febrero 2024
+                  </span>
+                </span>
               </p>
             </motion.div>
           </div>
