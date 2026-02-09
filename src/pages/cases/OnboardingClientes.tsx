@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const OnboardingClientes = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Onboarding de Clientes Automatizado"
+        description="Automatiza el alta de nuevos clientes para ofrecer una experiencia impecable desde el primer minuto. Mejora la retención desde el día uno."
+        canonical="https://mayidevai.com/casos/onboarding-clientes"
+        keywords="onboarding clientes, alta automatizada, experiencia cliente, retención, automatización CRM"
+      />
       <Navbar />
 
       <main>

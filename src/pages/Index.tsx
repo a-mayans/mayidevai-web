@@ -7,6 +7,7 @@ import ServicesSection from "@/components/ServicesSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   const location = useLocation();
@@ -73,6 +74,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="MayidevAI | Automatización de procesos e IA para empresas"
+        description="MayidevAI ayuda a empresas a automatizar procesos con n8n, Make y agentes de IA. Reduce costes, ahorra tiempo y escala tu negocio con automatización a medida."
+        canonical="https://mayidevai.com/"
+        keywords="automatización procesos, IA empresas, n8n, Make, agentes IA, automatización a medida"
+      />
       <Navbar />
       <HeroSection />
       <AboutSection />

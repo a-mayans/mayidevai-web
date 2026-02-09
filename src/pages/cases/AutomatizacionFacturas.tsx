@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const AutomatizacionFacturas = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Automatización de Facturas con IA"
+        description="Automatiza la gestión de facturas eliminando tareas manuales y errores administrativos. Procesamiento inteligente de documentos financieros."
+        canonical="https://mayidevai.com/casos/automatizacion-facturas"
+        keywords="automatización facturas, procesamiento documentos, OCR, gestión financiera, contabilidad automática"
+      />
       <Navbar />
 
       <main>

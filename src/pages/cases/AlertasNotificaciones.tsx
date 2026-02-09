@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const AlertasNotificaciones = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Alertas y Notificaciones Automáticas"
+        description="Mantén el control total de tu negocio con alertas automáticas basadas en eventos clave. Información crítica en tiempo real."
+        canonical="https://mayidevai.com/casos/alertas-notificaciones"
+        keywords="alertas automáticas, notificaciones negocio, monitorización, eventos, control operativo"
+      />
       <Navbar />
 
       <main>

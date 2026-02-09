@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const ChatbotsAtencionCliente = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Chatbots de Atención al Cliente con IA"
+        description="Sistemas de atención inteligente que resuelven dudas 24/7 y filtran leads de calidad. Automatiza tu soporte al cliente."
+        canonical="https://mayidevai.com/casos/chatbots-atencion-cliente"
+        keywords="chatbot IA, atención cliente, soporte 24/7, automatización conversacional, leads cualificados"
+      />
       <Navbar />
 
       <main>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const SincronizacionMultiplataforma = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Sincronización Multi-plataforma"
+        description="Conecta todas tus herramientas y mantén tus datos sincronizados en tiempo real sin duplicidades. Ecosistema tecnológico coherente."
+        canonical="https://mayidevai.com/casos/sincronizacion-multiplataforma"
+        keywords="sincronización datos, integración sistemas, API, automatización multi-plataforma, ecosistema digital"
+      />
       <Navbar />
 
       <main>

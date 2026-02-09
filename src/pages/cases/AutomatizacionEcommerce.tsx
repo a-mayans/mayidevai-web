@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Construction } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,12 @@ const AutomatizacionEcommerce = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Automatización de E-commerce con IA"
+        description="Optimiza tus pedidos, inventario y logística con flujos de trabajo inteligentes. Escala tu tienda online sin aumentar costes operativos."
+        canonical="https://mayidevai.com/casos/automatizacion-ecommerce"
+        keywords="automatización ecommerce, gestión inventario, logística automática, tienda online, n8n"
+      />
       <Navbar />
 
       <main>

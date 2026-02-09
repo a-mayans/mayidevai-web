@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +32,12 @@ const GestionCitasReservas = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Gestión de Citas y Reservas Automatizada - Caso de Éxito"
+        description="Sistema inteligente de recordatorios para eliminar inasistencias y optimizar la agenda. Reducción del 85% en no-shows. Caso real implementado."
+        canonical="https://mayidevai.com/casos/gestion-citas"
+        keywords="gestión citas, reservas automatizadas, recordatorios WhatsApp, clínica estética, reducir no-shows"
+      />
       <Navbar />
 
       <main>

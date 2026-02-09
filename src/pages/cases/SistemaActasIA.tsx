@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +31,12 @@ const SistemaActasIA = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Sistema de Actas de Obra con IA - Caso de Éxito"
+        description="Automatización real para generar, entregar y organizar actas de obra sin trabajo administrativo. Caso de éxito implementado para empresa de reformas."
+        canonical="https://mayidevai.com/casos/sistema-actas-ia"
+        keywords="actas de obra, automatización IA, gestión documental, reformas, arquitectura"
+      />
       <Navbar />
 
       <main>
